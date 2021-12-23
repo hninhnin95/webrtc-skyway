@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="utf-8" />
+	<script src="./js/jquery.min.js"></script>	
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+	<div id="login" class="lg-container">
+		<h2 class="text-center">Login Page</h2><br>
+		<div class="login">
+			<div class="row">
+				<label>メールアドレス</label>
+				<input type="text" name="mailAddress" id="mailAddress" placeholder="メールアドレスを入力してください">
+			</div>
+			<div class="row">
+				<label>パスワード</label>
+				<input type="Password" name="password" id="password" placeholder="パスワードを入力してください">
+			</div>
+			<div class="btn-row">
+				<button type="button" name="btnLogin" onclick="login()">ログイン</button>
+			</div>
+		</div>
+		<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+		<script src="./js/constant.js"></script>
+		<script src="./js/login.js"></script>
+</body>
+
+</html>

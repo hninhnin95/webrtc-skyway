@@ -1,0 +1,245 @@
+body {
+  background-color: #fff;
+  color: #000;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+/* login screen */
+.lg-container {
+  margin: 0 auto;
+  max-width: 500px;
+  padding: 35px 10px 0 10px;
+}
+.login .row {
+  margin-top: 20px;
+}
+.login label {
+  padding: 10px;
+  width: calc(100% - 20px);
+}
+.login input {
+  border-radius: 15px;
+  border: 1px solid #aaa;
+  padding: 10px;
+  width: calc(100% - 20px);
+}
+.login input::placeholder {
+  color: #aaa;
+  font-size: 13px;
+}
+.login .btn-row {
+  margin-top: 50px;
+  text-align: center;
+}
+.login button {
+  background: #000;
+  border-radius: 5px;
+  border: 1px solid #000;
+  color: #fff;
+  height: 40px;
+  width: 100px;
+}
+/* home screen */
+.home .col-l {
+  height: 100%;
+  width: 100%;
+}
+.home .col-header {
+  border-bottom: 1px solid #aaa;
+  height: 30px;
+  padding: 10px;
+  width: calc(100% - 20px);
+}
+.home .w-p-25 {
+  border-right: 1px solid #aaa;
+  width: calc(25% - 1px);
+}
+.home .w-p-75 {
+  width: 75%;
+}
+.home .row:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+.home .call button,
+.home .col-l .col-header button {
+  background: none;
+  border: none;
+  color: #000;
+  font-size: 20px;
+  margin: 0 10px;
+}
+.home .user {
+  border-bottom: 1px solid #aaa;
+  display: inline-block;
+  padding: 20px 10px;
+  width: calc(100% - 20px);
+}
+.home .user p {
+  color: #aaa;
+  font-size: 13px;
+}
+.footer {
+  bottom: 10px;
+  height: 30px;
+  padding: 10px;
+  width: calc(75% - 20px);
+}
+.footer input {
+  height: 30px;
+  padding: 0 5px;
+  width: calc(95% - 10px);
+}
+.footer button {
+  background: #000;
+  border-radius: 5px;
+  border: 1px solid;
+  color: #fff;
+  height: 35px;
+  width: 40px;
+}
+/* setting modal */
+.modal {
+  display: none;
+  height: 100%;
+  left: 0;
+  overflow: auto;
+  padding-top: 30px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+.modal .modal-content {
+  background-color: #fff;
+  border: 1px solid #aaa;
+  height: 90px;
+  left: 361px;
+  position: absolute;
+  width: 150px;
+}
+.modal button {
+  background: none;
+  border: none;
+  height: 30px;
+  text-align: left;
+  width: 100%;
+}
+.modal button:not(:last-child) {
+  border-bottom: 1px solid #aaa !important;
+}
+.modal i {
+  color: #000;
+  margin: 0 5px;
+}
+.initial-st {
+  height: 100%;
+  padding: 100px;
+  width: calc(100% - 200px);
+}
+pre {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  margin: 10px;
+}
+pre:nth-child(2n) {
+  text-align: right;
+}
+/* call modal */
+.v-call-modal {
+  display: none;
+  height: 600px;
+  left: 50%;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 1024px;
+}
+.v-call-modal .modal-content {
+  background-color: #fff;
+  border: 1px solid #aaa;
+  height: 100%;
+  margin: 0 auto;
+  position: absolute;
+  width: 100%;
+}
+.remote-stream {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+.local-stream {
+  height: 200px;
+  left: 10px;
+  position: absolute;
+  top: 10px;
+  width: 300px;
+  z-index: 999;
+  background: #000;
+  border: 1px solid #ff0000;
+}
+.v-call-modal button {
+  background: none;
+  border: none;
+  bottom: 10px;
+  height: 30px;
+  position: absolute;
+  width: 100%;
+}
+.v-call-modal i {
+  color: #ff0000;
+  margin: 0 5px;
+  font-size: 30px;
+}
+/* common */
+.w-100 {
+  width: 100%;
+}
+.w-80 {
+  width: 80%;
+}
+.h-100 {
+  height: 100%;
+}
+.m-0 {
+  margin: 0;
+}
+.p-0 {
+  padding: 0;
+}
+.f-l {
+  float: left;
+}
+.f-r {
+  float: right;
+}
+.text-center {
+  text-align: center;
+}
+.p-relative {
+  position: relative;
+}
+.p-absolute {
+  position: absolute;
+}
+input:focus-visible {
+  outline: none !important;
+}
+.dark-mode {
+  background-color: black;
+  color: white;
+}
+.light-mode {
+  background-color: white;
+  color: black;
+}
+@media screen and (max-width: 480px) {
+}
+@media (min-width: 481px) and (max-width: 630px) {
+}

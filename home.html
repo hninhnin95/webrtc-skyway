@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="utf-8" />
+	<script src="./js/jquery.min.js"></script>	
+	<script src="./js/skyway-api-key.js"></script>
+	<link rel="stylesheet" href="css/style.css">
+	<link href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet"
+		integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+	<div id="home" class="h-containter w-100 h-100">
+		<div class="home w-100 h-100">
+			<div id="col-l" class="col-l w-p-25 f-l">
+				<div class="col-header">
+					<h2 id="loginUserName" class="w-80 m-0 p-0 f-l m-0 p-0"></h2>
+					<button id="showModal" class="f-r btn">
+						<i class="fas fa-ellipsis-h"></i>
+					</button>
+				</div>
+				<div id="col-l-body" class="col-l-body">
+				</div>
+			</div>
+			<div class="col-r w-p-75 f-r">
+				<div class="chat-container" id="chat-container">
+					<div class="col-header">
+						<input type="hidden" id="remote-id"/>
+						<h2 id="remote-user" class="w-80 m-0 p-0 f-l"></h2>
+						<div class="call f-r">
+							<button class="btn" id="btnAudioCall">
+								<i class="fas fa-phone-alt"></i>
+							</button>
+							<button class="btn" id="btnVideoCall">
+								<i class="fas fa-video"></i>
+							</button>
+						</div>
+					</div>
+					<div class="col-r-body">
+						<div class="content">
+							<pre class="messages" id="msg-container"></pre>
+						</div>
+						<div class="footer p-absolute">
+							<input type="text" class="m-0" id="msg-content">
+							<button id="btnSend">
+								<i class="fas fa-paper-plane"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="initial-st" id="initial-st">
+					<h2 id="welcome" class="w-100 m-0 p-0 f-l m-0 p-0">Welcome !</h2>
+					<h4 id="userName" class="w-100 m-0 p-0 f-l m-0 p-0"></h4>
+				</div>
+			</div>
+		</div>
+		<div id="modal" class="modal">
+			<div class="modal-content">
+				<button type="button" name="btnMode" onclick="darkMode()">
+					<i class="fas fa-moon"></i>ダークモード
+				</button>
+				<button type="button" name="btnMode" onclick="lightMode()">
+					<i class="far fa-sun"></i>ライトモード
+				</button>
+				<button type="button" name="btnlogout" onclick="logout()">
+					<i class="fas fa-sign-out-alt"></i>ログアウト
+				</button>
+			</div>
+		</div>
+		<div id="videoModal" class="v-call-modal">
+			<div class="modal-content">
+				<div class="local-stream">
+          <video id="js-local-stream" class="w-100 h-100" autoplay muted></video>
+				</div>
+				<div class="remote-stream">
+          <video id="js-remote-stream" class="w-100 h-100" autoplay muted></video>
+        </div>
+				<button id="js-close-trigger">
+					<i class="fas fa-times-circle"></i>
+				</button>
+			</div>
+		</div>
+		<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+		<script src="./js/constant.js"></script>
+		<script src="//cdn.webrtc.ecl.ntt.com/skyway-4.4.3.js"></script>
+		<script src="./js/skyway-scripts.js"></script>
+		<script src="./js/home.js"></script>
+</body>
+
+</html>
