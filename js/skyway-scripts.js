@@ -11,7 +11,8 @@ const sendTrigger = document.getElementById("btnSend");
 
 // video audio call
 const localVideo = document.getElementById('js-local-stream');
-const closeTrigger = document.getElementById('js-close-trigger');
+const videoCloseTrigger = document.getElementById('video-close-trigger');
+const audioCloseTrigger = document.getElementById('audio-close-trigger');
 const remoteVideo = document.getElementById('js-remote-stream');
 let video = false;
 
@@ -35,6 +36,17 @@ const peer = new Peer(localId, {
 	peer.on('call', async (mediaConnection) => {
 
 		video = mediaConnection.metadata.video;
+	
+		if(video) {
+			$("#videoModal").css("display", "block");
+		}else {
+			$("#audioModal").css("display", "block");
+			$("#remoteUserName").text(
+				userArrList.find(
+					(user) => user.code == window.localStorage.getItem("remoteId")
+				).name
+			);
+		}
 
 		// カメラ映像取得
 		const localStream = await navigator.mediaDevices
@@ -50,7 +62,6 @@ const peer = new Peer(localId, {
 		localVideo.playsInline = true;
 		await localVideo.play().catch(console.error);
 
-		$("#videoModal").css("display", "block");
 		mediaConnection.answer(localStream);
 		callMediaConnection(mediaConnection);
 
@@ -63,6 +74,7 @@ const peer = new Peer(localId, {
  * 発信処理
  * 
  * @param {Object} dataConnection 
+ * @returns void
  */
 function openDataConnection(dataConnection) {
 
@@ -109,12 +121,12 @@ function openDataConnection(dataConnection) {
 /**
  * 発信処理
  * 
- * @param {Object} mediaConnection 
+ * @param {Object} mediaConnection
+ * @returns void
  */
 function callMediaConnection(mediaConnection) {
 
 	mediaConnection.on("stream", async (stream) => {
-		console.log(stream);
 		// Render remote stream for caller
 		remoteVideo.srcObject = stream;
 		remoteVideo.playsInline = true;
@@ -125,10 +137,16 @@ function callMediaConnection(mediaConnection) {
 		remoteVideo.srcObject.getTracks().forEach((track) => track.stop());
 		remoteVideo.srcObject = null;
 		$("#videoModal").css("display", "none");
+		$("#audioModal").css("display", "none");
 	});
 
-	closeTrigger.addEventListener("click", () => {
+	videoCloseTrigger.addEventListener("click", () => {
 		mediaConnection.close(true);
 		$("#videoModal").css("display", "none");
+	});
+
+	audioCloseTrigger.addEventListener("click", () => {
+		mediaConnection.close(true);
+		$("#audioModal").css("display", "none");
 	});
 }

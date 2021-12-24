@@ -5,8 +5,7 @@
 	<title></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta charset="utf-8" />
-	<script src="./js/jquery.min.js"></script>	
-	<script src="./js/skyway-api-key.js"></script>
+	<script src="./js/jquery.min.js"></script>
 	<link rel="stylesheet" href="css/style.css">
 	<link href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet"
 		integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
@@ -29,7 +28,7 @@
 			<div class="col-r w-p-75 f-r">
 				<div class="chat-container" id="chat-container">
 					<div class="col-header">
-						<input type="hidden" id="remote-id"/>
+						<input type="hidden" id="remote-id" />
 						<h2 id="remote-user" class="w-80 m-0 p-0 f-l"></h2>
 						<div class="call f-r">
 							<button class="btn" id="btnAudioCall">
@@ -74,12 +73,25 @@
 		<div id="videoModal" class="v-call-modal">
 			<div class="modal-content">
 				<div class="local-stream">
-          <video id="js-local-stream" class="w-100 h-100" autoplay muted></video>
+					<video id="js-local-stream" class="w-100 h-100" autoplay muted></video>
 				</div>
 				<div class="remote-stream">
-          <video id="js-remote-stream" class="w-100 h-100" autoplay muted></video>
-        </div>
-				<button id="js-close-trigger">
+					<video id="js-remote-stream" class="w-100 h-100" autoplay muted></video>
+				</div>
+				<button id="video-close-trigger" class="btnClose">
+					<i class="fas fa-times-circle"></i>
+				</button>
+			</div>
+		</div>
+		<div id="audioModal" class="a-call-modal">
+			<div class="modal-content">
+				<div class="audio-stream">
+					<p>
+						<i class="fas fa-user color-w"></i>
+					</p>
+					<h2 class="remoteUserName color-w" id="remoteUserName"></h2>
+				</div>
+				<button id="audio-close-trigger" class="btnClose">
 					<i class="fas fa-times-circle"></i>
 				</button>
 			</div>
