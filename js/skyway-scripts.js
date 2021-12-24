@@ -13,6 +13,7 @@ const sendTrigger = document.getElementById("btnSend");
 const localVideo = document.getElementById('js-local-stream');
 const closeTrigger = document.getElementById('js-close-trigger');
 const remoteVideo = document.getElementById('js-remote-stream');
+let video = false;
 
 // Peerオブジェクトを作成
 const peer = new Peer(localId, {
@@ -27,20 +28,23 @@ const peer = new Peer(localId, {
 	});
 
 	peer.on("connection", (dataConnection) => {
-		messgagingConnection(dataConnection)
+		openDataConnection(dataConnection)
 	});
 
 	// Register callee handler
 	peer.on('call', async (mediaConnection) => {
 
+		video = mediaConnection.metadata.video;
+
+		// カメラ映像取得
 		const localStream = await navigator.mediaDevices
 			.getUserMedia({
 				audio: true,
-				video: true,
+				video: video,
 			})
 			.catch(console.error);
 
-		// Render local stream
+		// 成功時にvideo要素にカメラ映像をセットし、再生
 		localVideo.muted = true;
 		localVideo.srcObject = localStream;
 		localVideo.playsInline = true;
@@ -48,7 +52,7 @@ const peer = new Peer(localId, {
 
 		$("#videoModal").css("display", "block");
 		mediaConnection.answer(localStream);
-		callingConnection(mediaConnection);
+		callMediaConnection(mediaConnection);
 
 	});
 
@@ -56,11 +60,11 @@ const peer = new Peer(localId, {
 })();
 
 /**
- * 接続開始
+ * 発信処理
  * 
  * @param {Object} dataConnection 
  */
-function messgagingConnection(dataConnection) {
+function openDataConnection(dataConnection) {
 
 	dataConnection.once("open", async () => {
 		console.log("=== DataConnection has been opened ===");
@@ -91,23 +95,26 @@ function messgagingConnection(dataConnection) {
 	// 送信元
 	function onClickSend() {
 		const data = msgContent.value;
-		dataConnection.send(data);
+		if (data) {
+			dataConnection.send(data);
 
-		msgContainer.textContent += `${userName
-			.charAt(0)
-			.toUpperCase()}: ${data}\n`;
-		msgContent.value = "";
+			msgContainer.textContent += `${userName
+				.charAt(0)
+				.toUpperCase()}: ${data}\n`;
+			msgContent.value = "";
+		}
 	}
 }
 
 /**
- * 接続元
+ * 発信処理
  * 
  * @param {Object} mediaConnection 
  */
-function callingConnection(mediaConnection) {
+function callMediaConnection(mediaConnection) {
 
 	mediaConnection.on("stream", async (stream) => {
+		console.log(stream);
 		// Render remote stream for caller
 		remoteVideo.srcObject = stream;
 		remoteVideo.playsInline = true;

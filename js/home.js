@@ -15,8 +15,14 @@ $(document).ready(function() {
 
 	$("#btnVideoCall").on("click", function(event) {
 		event.preventDefault();
-		$("#videoModal").css("display", "block");
-		videoCallToRemote(window.localStorage.getItem("remoteId"));
+		video = true;
+		callMediaToRemote(window.localStorage.getItem("remoteId"),);
+	});
+
+	$("#btnAudioCall").on("click", function(event) {
+		event.preventDefault();
+		video = false;
+		callMediaToRemote(window.localStorage.getItem("remoteId"));
 	});
 });
 
@@ -59,7 +65,9 @@ function showUserChat(name, code) {
 	$("#remote-user").text(name);
 	$("#chat-container").css("display", "");
 	$("#initial-st").css("display", "none");
-	connectRemoteId(code, name);
+	// TODO: multiple users
+	// msgContainer.textContent = ""; 
+	connectDataMediaToRemote(code, name);
 }
 
 /**
@@ -111,17 +119,16 @@ function logout() {
  *  接続元
  *
  * @param {String} remoteId
- * @param {String} toUserName
  * @returns void
  */
-async function connectRemoteId(remoteId, toUserName) {
+async function connectDataMediaToRemote(remoteId) {
 	if (!peer.open) {
 		return;
 	}
 
 	// 接続開始
 	const dataConnection = peer.connect(remoteId);
-	messgagingConnection(dataConnection);
+	openDataConnection(dataConnection);
 }
 
 /**
@@ -130,15 +137,16 @@ async function connectRemoteId(remoteId, toUserName) {
  * @param {String} remoteId
  * @returns void
  */
-async function videoCallToRemote(remoteId) {
+async function callMediaToRemote(remoteId) {
 	if (!peer.open) {
 		return;
 	}
-
+	
+	$("#videoModal").css("display", "block");
 	const hostStream = await navigator.mediaDevices
 		.getUserMedia({
 			audio: true,
-			video: true,
+			video: video,
 		})
 		.catch(console.error);
 
@@ -148,6 +156,6 @@ async function videoCallToRemote(remoteId) {
 	localVideo.playsInline = true;
 	await localVideo.play().catch(console.error);
 
-	const mediaConnection = peer.call(remoteId, hostStream);
-	callingConnection(mediaConnection);
+	const mediaConnection = peer.call(remoteId, hostStream, {metadata:{video: video}});
+	callMediaConnection(mediaConnection);
 }
