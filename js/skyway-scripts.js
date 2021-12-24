@@ -26,45 +26,8 @@ const peer = new Peer(localId, {
 		console.log("My peer ID is: " + id);
 	});
 
-	// connection openイベント
 	peer.on("connection", (dataConnection) => {
-
-		dataConnection.once("open", async () => {
-			console.log("=== DataConnection has been opened ===");
-			console.log("Remote ID is: " + dataConnection.remoteId);
-
-			$("#remote-id").text(dataConnection.remoteId);
-			$("#remote-user").text(
-				userArrList.find((user) => user.code == dataConnection.remoteId).name
-			);
-			$("#chat-container").css("display", "");
-			$("#initial-st").css("display", "none");
-			msgContainer.textContent = "";
-			sendTrigger.addEventListener("click", onClickRemoteSend);
-		});
-
-		dataConnection.on("data", (data) => {
-			msgContainer.textContent += `${userArrList
-				.find((user) => user.code == dataConnection.remoteId)
-				.name.charAt(0)
-				.toUpperCase()}: ${data}\n`;
-		});
-
-		dataConnection.once("close", () => {
-			console.log("=== DataConnection has been closed ===");
-			sendTrigger.removeEventListener("click", onClickRemoteSend);
-		});
-
-		// 送信元
-		function onClickRemoteSend() {
-			const data = msgContent.value;
-			dataConnection.send(data);
-
-			msgContainer.textContent += `${userName
-				.charAt(0)
-				.toUpperCase()}: ${data}\n`;
-			msgContent.value = "";
-		}
+		messgagingConnection(dataConnection)
 	});
 
 	// Register callee handler
@@ -85,26 +48,80 @@ const peer = new Peer(localId, {
 
 		$("#videoModal").css("display", "block");
 		mediaConnection.answer(localStream);
+		callingConnection(mediaConnection);
 
-		mediaConnection.on('stream', async stream => {
-
-			// Render remote stream for callee
-			remoteVideo.srcObject = stream;
-			remoteVideo.playsInline = true;
-			await remoteVideo.play().catch(console.error);
-		});
-
-		mediaConnection.once('close', () => {
-			remoteVideo.srcObject.getTracks().forEach(track => track.stop());
-			remoteVideo.srcObject = null;			
-			$("#videoModal").css("display", "none");
-		});
-
-		closeTrigger.addEventListener('click', () => {
-			mediaConnection.close(true);
-			$("#videoModal").css("display", "none");
-		});
 	});
 
 	peer.on("error", console.error);
 })();
+
+/**
+ * 接続開始
+ * 
+ * @param {Object} dataConnection 
+ */
+function messgagingConnection(dataConnection) {
+
+	dataConnection.once("open", async () => {
+		console.log("=== DataConnection has been opened ===");
+		console.log("Remote ID is: " + dataConnection.remoteId);
+
+		$("#remote-id").text(dataConnection.remoteId);
+		$("#remote-user").text(
+			userArrList.find((user) => user.code == dataConnection.remoteId).name
+		);
+		$("#chat-container").css("display", "");
+		$("#initial-st").css("display", "none");
+		msgContainer.textContent = "";
+		sendTrigger.addEventListener("click", onClickSend);
+	});
+
+	dataConnection.on("data", (data) => {
+		msgContainer.textContent += `${userArrList
+			.find((user) => user.code == dataConnection.remoteId)
+			.name.charAt(0)
+			.toUpperCase()}: ${data}\n`;
+	});
+
+	dataConnection.once("close", () => {
+		console.log("=== DataConnection has been closed ===");
+		sendTrigger.removeEventListener("click", onClickSend);
+	});
+
+	// 送信元
+	function onClickSend() {
+		const data = msgContent.value;
+		dataConnection.send(data);
+
+		msgContainer.textContent += `${userName
+			.charAt(0)
+			.toUpperCase()}: ${data}\n`;
+		msgContent.value = "";
+	}
+}
+
+/**
+ * 接続元
+ * 
+ * @param {Object} mediaConnection 
+ */
+function callingConnection(mediaConnection) {
+
+	mediaConnection.on("stream", async (stream) => {
+		// Render remote stream for caller
+		remoteVideo.srcObject = stream;
+		remoteVideo.playsInline = true;
+		await remoteVideo.play().catch(console.error);
+	});
+
+	mediaConnection.once("close", () => {
+		remoteVideo.srcObject.getTracks().forEach((track) => track.stop());
+		remoteVideo.srcObject = null;
+		$("#videoModal").css("display", "none");
+	});
+
+	closeTrigger.addEventListener("click", () => {
+		mediaConnection.close(true);
+		$("#videoModal").css("display", "none");
+	});
+}
