@@ -49,11 +49,7 @@ function login() {
  */
 function validateEmail(emailAddress) {
   var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  if (emailAddress.match(mailformat)) {
-    return true;
-  } else {
-    return false;
-  }
+  return emailAddress.match(mailformat) ? true : false;
 }
 
 /**

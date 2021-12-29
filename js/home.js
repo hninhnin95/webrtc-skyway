@@ -47,12 +47,12 @@ function checkAndShowActiveUserList() {
       var index = arrList.findIndex((user) => user.id == userId);
       arrList.splice(index, 1);
       // アクティブユーザー表示
-      for (let i = 0; i < arrList.length; i++) {
-        if (arrList[i].loginFlg == true) {
-          window.localStorage.setItem("remoteId", arrList[i].code);
+      for (let idx = 0; idx < arrList.length; idx++) {
+        if (arrList[idx].loginFlg == true) {
+          window.localStorage.setItem("remoteId", arrList[idx].code);
           $("#col-l-body").append(
-            `<div class="user" onclick="showUserChat('${arrList[i].name}', '${arrList[i].code}')">
-							<label id="lbltext">${arrList[i].name}</label>
+            `<div class="user" onclick="showUserChat('${arrList[idx].name}', '${arrList[idx].code}')">
+							<label id="lbltext">${arrList[idx].name}</label>
 							<p class="m-0 p-0">Active</p>
 							<div>`
           );
@@ -68,7 +68,7 @@ function checkAndShowActiveUserList() {
  * チャトメッセージ表示
  *
  * @param {String} name
- * @param {$tring} code
+ * @param {String} code
  * @return void
  */
 function showUserChat(name, code) {
@@ -160,6 +160,7 @@ async function callMediaToRemote(remoteId) {
     return;
   }
 
+	// callerのビデオストリームを取得
   const hostStream = await navigator.mediaDevices
     .getUserMedia({
       audio: true,
@@ -172,6 +173,7 @@ async function callMediaToRemote(remoteId) {
   localVideo.playsInline = true;
   await localVideo.play().catch(console.error);
 
+	// 着信処理
   const mediaConnection = peer.call(remoteId, hostStream, {
     metadata: { video: video },
   });

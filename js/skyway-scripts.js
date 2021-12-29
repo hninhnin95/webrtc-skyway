@@ -126,6 +126,7 @@ function openDataConnection(dataConnection) {
  */
 function callMediaConnection(mediaConnection) {
 
+	// メディア接続を開始
 	mediaConnection.on("stream", async (stream) => {
 		// Render remote stream for caller
 		remoteVideo.srcObject = stream;
@@ -133,6 +134,7 @@ function callMediaConnection(mediaConnection) {
 		await remoteVideo.play().catch(console.error);
 	});
 
+	// メディア接続を閉じる
 	mediaConnection.once("close", () => {
 		remoteVideo.srcObject.getTracks().forEach((track) => track.stop());
 		remoteVideo.srcObject = null;
