@@ -1,9 +1,6 @@
 $(document).ready(function () {
 
-  // 初期状態
-  checkAndShowActiveUserList();
-
-  $("#loginUserName").text(userName);
+	$("#loginUserName").text(userName);
   $("#userName").text(userName);
   $("#chat-container").css("display", "none");
 
@@ -34,35 +31,6 @@ $(document).ready(function () {
     callMediaToRemote(window.localStorage.getItem("remoteId"));
   });
 });
-
-/**
- * ログインしたユーザーをチャックとユーザーステータスチェック
- * 
- * @returns void
- */
-function checkAndShowActiveUserList() {
-  if (userId) {
-    firebaseRef.on("value", function (snapshot) {
-      var arrList = Object.values(snapshot.val());
-      var index = arrList.findIndex((user) => user.id == userId);
-      arrList.splice(index, 1);
-      // アクティブユーザー表示
-      for (let idx = 0; idx < arrList.length; idx++) {
-        if (arrList[idx].loginFlg == true) {
-          window.localStorage.setItem("remoteId", arrList[idx].code);
-          $("#col-l-body").append(
-            `<div class="user" onclick="showUserChat('${arrList[idx].name}', '${arrList[idx].code}')">
-							<label id="lbltext">${arrList[idx].name}</label>
-							<p class="m-0 p-0">Active</p>
-							<div>`
-          );
-        }
-      }
-    });
-  } else {
-    window.location.href = "login.html";
-  }
-}
 
 /**
  * チャトメッセージ表示

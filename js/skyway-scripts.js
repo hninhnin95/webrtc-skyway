@@ -1,8 +1,11 @@
 // ログインユーザー情報
 const loginUserInfo = JSON.parse(window.localStorage.getItem("loginUserInfo"));
-const localId = loginUserInfo.code;
-const userName = loginUserInfo.name;
-const userId = loginUserInfo.id;
+let localId = null;
+let userName = null;
+let userId = null;
+
+// 初期状態
+checkAndShowActiveUserList();
 
 // messaging
 const msgContainer = document.getElementById("msg-container");
@@ -69,6 +72,40 @@ const peer = new Peer(localId, {
 
 	peer.on("error", console.error);
 })();
+
+/**
+ * ログインしたユーザーをチャックとユーザーステータスチェック
+ * 
+ * @returns void
+ */
+ function checkAndShowActiveUserList() {
+  if (loginUserInfo) {
+
+		localId = loginUserInfo.code;
+		userName = loginUserInfo.name;
+		userId = loginUserInfo.id;
+
+    firebaseRef.on("value", function (snapshot) {
+      var arrList = Object.values(snapshot.val());
+      var index = arrList.findIndex((user) => user.id == userId);
+      arrList.splice(index, 1);
+      // アクティブユーザー表示
+      for (let idx = 0; idx < arrList.length; idx++) {
+        if (arrList[idx].loginFlg == true) {
+          window.localStorage.setItem("remoteId", arrList[idx].code);
+          $("#col-l-body").append(
+            `<div class="user" onclick="showUserChat('${arrList[idx].name}', '${arrList[idx].code}')">
+							<label id="lbltext">${arrList[idx].name}</label>
+							<p class="m-0 p-0">Active</p>
+							<div>`
+          );
+        }
+      }
+    });
+  } else {
+    window.location.href = "login.html";
+  }
+}
 
 /**
  * 発信処理

@@ -266,3 +266,14 @@ input:focus-visible {
   background-color: white;
   color: black;
 }
+@media (min-width: 621px) and (max-width: 768px) {
+  .home .w-p-25 {
+    width: calc(38% - 1px) !important;
+  }
+  .home .w-p-75 {
+    width: 62% !important;
+  }
+  .modal .modal-content {
+    left: 245px !important;
+  }
+}
