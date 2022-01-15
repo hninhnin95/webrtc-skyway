@@ -22,8 +22,6 @@ https://console.firebase.google.com/u/0/
 ![alt text](https://github.com/hninhnin95/webrtc-skyway/blob/develop/images/s_img_4.png?raw=true)
 ![alt text](https://github.com/hninhnin95/webrtc-skyway/blob/develop/images/s_img_5.png?raw=true)
 
-copy and replace API key to 'constant.js'
-
 ## ローカル web サーバの準備
 
 1. Visual Studio Code の拡張機能 Live Server を使う

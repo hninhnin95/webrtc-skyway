@@ -8,7 +8,7 @@ function login() {
   let password = $("input[id=password]").val();
 
   if (validateEmail(emailAddress)) {
-		var loginUserInfo = checkUser(emailAddress);
+		let loginUserInfo = checkUser(emailAddress);
 
     if (loginUserInfo) {
 
@@ -16,7 +16,7 @@ function login() {
 
         // ログインフラグ変更
         firebaseRef.on("value", function (snapshot) {
-          var index = Object.values(snapshot.val()).findIndex(
+          const index = Object.values(snapshot.val()).findIndex(
             (user) => user.email == emailAddress
           );
           firebase

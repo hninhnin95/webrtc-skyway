@@ -91,7 +91,7 @@ const peer = new Peer(localId, {
       arrList.splice(index, 1);
       // アクティブユーザー表示
       for (let idx = 0; idx < arrList.length; idx++) {
-        if (arrList[idx].loginFlg == true) {
+        if (arrList[idx].loginFlg) {
           window.localStorage.setItem("remoteId", arrList[idx].code);
           $("#col-l-body").append(
             `<div class="user" onclick="showUserChat('${arrList[idx].name}', '${arrList[idx].code}')">

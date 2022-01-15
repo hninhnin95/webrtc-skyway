@@ -87,8 +87,8 @@ function lightMode() {
  */
 function logout() {
   firebaseRef.on("value", function (snapshot) {
-    var index = Object.values(snapshot.val()).findIndex(
-      (user) => user.id == loginUserInfo.id
+    const index = Object.values(snapshot.val()).findIndex(
+      (user) => user.id === loginUserInfo.id
     );
     firebase
       .database()
