@@ -46,7 +46,7 @@ const peer = new Peer(localId, {
 			$("#audioModal").css("display", "block");
 			$("#remoteUserName").text(
 				userArrList.find(
-					(user) => user.code == window.localStorage.getItem("remoteId")
+					(user) => user.code == localId
 				).name
 			);
 		}
@@ -92,7 +92,6 @@ const peer = new Peer(localId, {
       // アクティブユーザー表示
       for (let idx = 0; idx < arrList.length; idx++) {
         if (arrList[idx].loginFlg) {
-          window.localStorage.setItem("remoteId", arrList[idx].code);
           $("#col-l-body").append(
             `<div class="user" onclick="showUserChat('${arrList[idx].name}', '${arrList[idx].code}')">
 							<label id="lbltext">${arrList[idx].name}</label>

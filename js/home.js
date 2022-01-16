@@ -15,7 +15,7 @@ $(document).ready(function () {
     event.preventDefault();
     video = true;
 		$("#videoModal").css("display", "block");
-    callMediaToRemote(window.localStorage.getItem("remoteId"));
+    callMediaToRemote($("#remote-id").text());
   });
 
 	// オーディオボタンクリック
@@ -25,10 +25,10 @@ $(document).ready(function () {
 		$("#audioModal").css("display", "block");
 		$("#remoteUserName").text(
 			userArrList.find(
-				(user) => user.code == window.localStorage.getItem("remoteId")
+				(user) => user.code == localId
 			).name
 		);
-    callMediaToRemote(window.localStorage.getItem("remoteId"));
+    callMediaToRemote($("#remote-id").text());
   });
 });
 

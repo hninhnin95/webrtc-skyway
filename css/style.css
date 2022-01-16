@@ -266,7 +266,7 @@ input:focus-visible {
   background-color: white;
   color: black;
 }
-@media (min-width: 621px) and (max-width: 768px) {
+@media (min-width: 621px) and (max-width: 780px) {
   .home .w-p-25 {
     width: calc(38% - 1px) !important;
   }
@@ -276,4 +276,16 @@ input:focus-visible {
   .modal .modal-content {
     left: 245px !important;
   }
+
+	.w-80 {
+		width: 60% !important;
+	}
+
+	.footer {
+		width: calc(62% - 20px) !important;
+	}
+
+	.footer input {
+		width: calc(88% - 10px) !important;
+	}
 }

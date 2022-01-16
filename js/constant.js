@@ -3,15 +3,15 @@ const userList = [
 	{
 		id: 1,
 		name: "Cherry Zaw",
-		email: "cz@gmail.com",
-		code: "jubZFqwed8d4TRbe",
+		email: "cherryzaw@gmail.com",
+		code: "jubZFqwed8d4CZbe",
 		loginFlg: false,
 	},
 	{
 		id: 2,
 		name: "Hnin Hnin Yu",
-		email: "hhy@gmail.com",
-		code: "jubZFpQYd8d4TCbe",
+		email: "hninhninyu@gmail.com",
+		code: "jubZFpQYd8d4HHbe",
 		loginFlg: false,
 	},
 ];
